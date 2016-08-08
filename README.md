@@ -4,11 +4,15 @@
 
 Directive for Angular 1.x to easily bind custom (or not) events
 
-Angular provides some useful directives for attaching event handlers easily: `ng-click="$ctrl.clickHandler()"`, `ng-change="$ctrl.changeHandler($event)"` or `ng-mouseenter="$ctrl.mouseenterHandler($event)"` etc.
+Angular provides some useful directives for attaching event handlers easily:
 
-## Examples
+* `ng-click="$ctrl.clickHandler()"`;
+* `ng-change="$ctrl.changeHandler($event)"`;
+* `ng-mouseenter="$ctrl.mouseenterHandler($event)"` etc.
 
-When you need to bind to custom event you'd probably do something like this:
+But for custom events it's a tad more work, you need to set event listener on element yourself.
+
+You might do something like this:
 
 ```js
 angular
@@ -24,7 +28,30 @@ angular
     });
 ```
 
-with `ng-on` you can do this (notice it's now a simple `component`):
+or do something similar in controller and injected `$element`.
+
+this is fine for few small amount of bindings but gets tedious for setting up many events on many different elements.
+
+Enter the angularisher way of doing this with `ng-on`!
+
+```html
+<div ng-on="{ 'event-name': handlerFn }"></div>
+```
+
+* `event-name` - name of event you want to listen to. Can be any event that element fires (also regular `click`, `mouseenter` etc.);
+* `handlerFn` - a reference to function which is in components scope (i.e. controller of directive/component must expose this function). The function is called with `event` attribute.
+
+
+## Installation
+
+* `npm i ng-on --save`
+* `angular.module('yourModule', ['argshook.ngOn'])`
+
+
+## Examples
+
+
+notice the use of `component` no need for `link` anymore:
 
 ```js
 angular
