@@ -27,7 +27,9 @@ describe('Directive: ngOn', function() {
         element.triggerHandler('click');
         scope.$digest();
 
-        expect(scope.$parent.$$childHead.events.click).toHaveBeenCalled();
+        expect(scope.$parent.$$childHead.events.click).toHaveBeenCalledWith(jasmine.objectContaining({
+          type: 'click'
+        }));
       });
     });
   });
