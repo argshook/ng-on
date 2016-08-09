@@ -57,7 +57,7 @@ notice the use of `component` no need for `link` anymore:
 angular
     .module('myModule')
     .component('myComponent', {
-        template: '<div ng-on="{ 'custom-event': $ctrl.customEventHandler }"'>{{$ctrl.eventValue}}</div>,
+        template: '<div ng-on="{ \'custom-event\': $ctrl.customEventHandler }">{{$ctrl.eventValue}}</div>',
         controller: function() {
             this.customEventHandler = function(event) {
                 this.eventValue = event.value;
@@ -72,7 +72,7 @@ you can also define multiple event handlers (this time `ng-on` value is in contr
 angular
     .module('myModule')
     .component('myComponent', {
-        template: '<div ng-on="$ctrl.eventsObj"'>{{$ctrl.eventValue}}</div>,
+        template: '<div ng-on="$ctrl.eventsObj">{{$ctrl.eventValue}}</div>',
         controller: function() {
             this.eventsObj = {
                 'custom-event': this.customEventHandler
@@ -94,4 +94,3 @@ angular
         }
     });
 ```
-
