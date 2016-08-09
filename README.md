@@ -1,6 +1,6 @@
 # ng-on
 
-## `<div ng-on="{ 'event-name': handlerFn, 'another-event-name': anotherHandlerFn }"></div>`
+## `<div ng-on="{ 'event-name': handlerFn }"></div>`
 
 Directive for Angular 1.x to easily bind custom (or not) events
 
