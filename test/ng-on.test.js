@@ -1,3 +1,5 @@
+/* global jasmine, describe, it, beforeEach, expect, module, inject, createCompiler   */
+
 'use strict';
 
 describe('Directive: ngOn', function() {
@@ -17,19 +19,27 @@ describe('Directive: ngOn', function() {
 
   describe('when given correct event object', function() {
     it('should call defined event handler', function() {
-     var eventObj = {
-        click: jasmine.createSpy('clickSpy')
+      var events = {
+        click: jasmine.createSpy('clickSpy'),
+        'the-amazing-spiderman': jasmine.createSpy('the-amazing-spiderman')
       };
 
-      compile({ events: eventObj }, elementAttrsMock, function (scope, element, driver) {
+      compile({ events: events }, elementAttrsMock, function (scope, element) {
         scope = $rootScope.$new();
 
         element.triggerHandler('click');
+        element.triggerHandler('the-amazing-spiderman');
         scope.$digest();
 
-        expect(scope.$parent.$$childHead.events.click).toHaveBeenCalledWith(jasmine.objectContaining({
-          type: 'click'
-        }));
+        expect(scope.$parent.$$childHead.events.click)
+          .toHaveBeenCalledWith(jasmine.objectContaining({
+            type: 'click'
+          }));
+
+        expect(scope.$parent.$$childHead.events['the-amazing-spiderman'])
+          .toHaveBeenCalledWith(jasmine.objectContaining({
+            type: 'the-amazing-spiderman'
+          }));
       });
     });
   });
