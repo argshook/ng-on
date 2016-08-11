@@ -6,6 +6,10 @@
   "scripts": {
     "test": "karma start"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/argshook/ng-on"
+  },
   "keywords": [
     "angular",
     "ngOn",
