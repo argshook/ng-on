@@ -43,4 +43,20 @@ describe('Directive: ngOn', function() {
       });
     });
   });
+
+  describe('when given incorrect event object', function() {
+    it('should throw error', function() {
+      var events = { 'shitsOnFireYo': undefined };
+
+      compile({ events: events }, elementAttrsMock, function (scope, element) {
+        scope = $rootScope.$new();
+
+        expect(function() {
+          element.triggerHandler('shitsOnFireYo');
+          scope.$digest();
+        }).toThrow(new Error('handler for event "shitsOnFireYo" is not a function'));
+      });
+    });
+  });
 });
+

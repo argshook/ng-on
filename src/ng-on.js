@@ -18,7 +18,11 @@
           Object.keys(eventsAndCallbacks).forEach(function(eventName) {
             element.on(eventName, function(event) {
               scope.$evalAsync(function() {
-                eventsAndCallbacks[eventName](event);
+                try {
+                  eventsAndCallbacks[eventName](event);
+                } catch(e) {
+                  throwError(e, eventName);
+                }
               });
             });
           });
@@ -26,6 +30,12 @@
       }
     }
   };
+
+  function throwError(error, eventName) {
+    if(error instanceof TypeError) {
+      throw new Error('handler for event "' + eventName + '" is not a function');
+    }
+  }
 
 })();
 
