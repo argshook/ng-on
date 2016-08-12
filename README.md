@@ -30,7 +30,7 @@ angular
 
 or do something similar in controller and injected `$element`.
 
-this is fine for few small amount of bindings but gets tedious for setting up many events on many different elements.
+this is fine for few bindings but gets tedious for setting up many events on many different elements.
 
 Enter the angularisher way of doing this with `ng-on`!
 
@@ -75,12 +75,12 @@ angular
         template: '<div ng-on="$ctrl.eventsObj">{{$ctrl.eventValue}}</div>',
         controller: function() {
             this.eventsObj = {
-                'custom-event': this.customEventHandler
-                'another-custom-event': this.anotherCustomEventHandler,
-                click: this.clickHandler // you can handle regular DOM events too
+                'custom-event': customEventHandler
+                'another-custom-event': anotherCustomEventHandler,
+                click: clickHandler // you can handle regular DOM events too
             };
 
-            this.customEventHandler = function(event) {
+            function customEventHandler(event) {
                 this.eventValue = event.value;
             };
 
