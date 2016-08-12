@@ -15,27 +15,26 @@
         return function(scope, element) {
           var eventsAndCallbacks = ngOn(scope);
 
-          Object.keys(eventsAndCallbacks).forEach(function(eventName) {
-            element.on(eventName, function(event) {
+          Object.keys(eventsAndCallbacks).forEach(callHandler);
+
+          function callHandler(eventName) {
+            element.on(eventName, function(eventObj) {
               scope.$evalAsync(function() {
-                try {
-                  eventsAndCallbacks[eventName].call(scope.$ctrl || scope, event);
-                } catch(e) {
-                  throwError(e, eventName);
-                }
+                callOrNot(eventName, eventObj);
               });
             });
-          });
+          }
+
+          function callOrNot(eventName, eventObj) {
+            if (eventsAndCallbacks[eventName]) {
+              return eventsAndCallbacks[eventName].call(scope.$ctrl || scope, eventObj);
+            }
+
+            throw new Error('handler for event "' + eventName + '" is not a function');
+          }
         };
       }
-    }
-  };
-
-  function throwError(error, eventName) {
-    if(error instanceof TypeError) {
-      throw new Error('handler for event "' + eventName + '" is not a function');
-    }
+    };
   }
-
 })();
 
