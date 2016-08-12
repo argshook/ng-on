@@ -19,7 +19,7 @@
             element.on(eventName, function(event) {
               scope.$evalAsync(function() {
                 try {
-                  eventsAndCallbacks[eventName](event);
+                  eventsAndCallbacks[eventName].call(scope.$ctrl || scope, event);
                 } catch(e) {
                   throwError(e, eventName);
                 }

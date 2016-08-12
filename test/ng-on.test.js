@@ -42,6 +42,30 @@ describe('Directive: ngOn', function() {
           }));
       });
     });
+
+    it('should call defined event handler with scope.$ctrl as context', function() {
+      var contextSpy = jasmine.createSpy('contextSpy');
+
+      var parentScope = {
+        events: {
+          'but-whole': function(e) {
+            this.spy(e);
+          }
+        },
+        spy: contextSpy
+      }
+
+      compile(parentScope, elementAttrsMock, function (scope, element) {
+        scope = $rootScope.$new();
+
+        element.triggerHandler('but-whole');
+        scope.$digest();
+
+        expect(contextSpy).toHaveBeenCalledWith(jasmine.objectContaining({
+          type: 'but-whole'
+        }));
+      });
+    });
   });
 
   describe('when given incorrect event object', function() {
