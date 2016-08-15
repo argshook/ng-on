@@ -9,13 +9,15 @@
   function ngOnDirective($parse) {
     return {
       restrict: 'A',
-      compile: function($element, attr) {
-        var ngOn = $parse(attr.ngOn);
+      compile: function(e, attrs) {
+        var ngOn = $parse(attrs.ngOn);
 
         return function(scope, element) {
           var eventsAndCallbacks = ngOn(scope);
 
-          Object.keys(eventsAndCallbacks).forEach(callHandler);
+          Object
+            .keys(eventsAndCallbacks)
+            .forEach(callHandler);
 
           function callHandler(eventName) {
             element.on(eventName, function(eventObj) {
@@ -26,7 +28,7 @@
           }
 
           function callOrNot(eventName, eventObj) {
-            if (eventsAndCallbacks[eventName]) {
+            if (typeof eventsAndCallbacks[eventName] === 'function') {
               return eventsAndCallbacks[eventName].call(scope.$ctrl || scope, eventObj);
             }
 
