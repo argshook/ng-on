@@ -3,7 +3,7 @@
 
   angular
     .module('argshook.ngOn', [])
-    .directive('ngOn', ngOnDirective);
+    .directive('ngOn', [ '$parse', ngOnDirective ]);
 
 
   function ngOnDirective($parse) {
