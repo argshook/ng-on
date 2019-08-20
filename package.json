@@ -1,8 +1,8 @@
 {
   "name": "ng-on",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Directive for Angular 1.x to easily bind custom (or not) events",
-  "main": "index.js",
+  "main": "src/ng-on.js",
   "scripts": {
     "test": "karma start"
   },
